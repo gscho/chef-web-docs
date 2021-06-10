@@ -185,7 +185,7 @@ Client run.
 ### chef_handler
 
 Exception and report handlers can be distributed using the
-**chef_handler** resource. This resource is included with Chef 14 and above.
+**chef_handler** resource. This resource is included with Chef Infra Client 14 and above.
 It can be used to enable custom handlers from within recipes and to
 include product-specific handlers from cookbooks.
 
