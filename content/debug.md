@@ -11,6 +11,7 @@ aliases = ["/debug.html"]
     parent = "chef_infra/cookbook_reference/recipes"
     weight = 20
 +++
+<!-- markdownlint-configure-file { "MD033": false, "MD024": false } -->
 
 Elements of good approaches to building cookbooks and recipes that are reliable include:
 
@@ -237,9 +238,8 @@ A [blog post by Joshua Timberman](http://jtimberman.housepub.org/blog/2014/09/02
 
 ### ignore_failure Method
 
-All resources share a set of common actions, attributes, and so on. Use the following attribute in a resource to help identify where an issue within a recipe may be located:
+All resources share a set of common actions, attributes, and other files. Use the following attribute in a resource to help identify where an issue within a recipe may be located:
 
-<!-- markdownlint-disable MD033 -->
 <table>
 <colgroup>
 <col style="width: 12%" />
@@ -258,7 +258,6 @@ All resources share a set of common actions, attributes, and so on. Use the foll
 </tr>
 </tbody>
 </table>
-<!-- markdownlint-enable MD033 -->
 
 ### chef-solo
 
