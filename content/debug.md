@@ -12,29 +12,24 @@ aliases = ["/debug.html"]
     weight = 20
 +++
 
-Elements of good approaches to building cookbooks and recipes that are
-reliable include:
+Elements of good approaches to building cookbooks and recipes that are reliable include:
 
--   A consistent syntax pattern when constructing recipes
--   Using the same patterns in Ruby
--   Using resources included in Chef Infra Client or community cookbooks
-    before creating custom ones
+- A consistent syntax pattern when constructing recipes
+- Using the same patterns in Ruby
+- Using resources included in Chef Infra Client or community cookbooks before creating custom ones
 
-Ideally, the best way to debug a recipe is to not have to debug it in
-the first place. That said, the following sections discuss various
-approaches to debugging recipes and failed Chef Infra Client runs.
+Ideally, the best way to debug a recipe is to not have to debug it in the first place. That said, the following sections discuss various approaches to debugging recipes and failed Chef Infra Client runs.
 
 ## Basic
 
-Some simple ways to quickly identify common issues that can trigger
-recipe and/or Chef Infra Client run failures include:
+Some simple ways to identify common issues that can trigger recipe and/or Chef Infra Client run failures include:
 
--   Using an empty run-list
--   Using verbose logging with knife
--   Using logging with Chef Infra Client
--   Using the **log** resource in a recipe to define custom logging
+- Using an empty run list
+- Using verbose logging with knife
+- Using logging with Chef Infra Client
+- Using the **log** resource in a recipe to define custom logging
 
-### Empty Run-lists
+### Empty Run lists
 
 {{% node_run_list_empty %}}
 
@@ -44,9 +39,7 @@ Use the verbose logging that is built into knife:
 
 `-V`, `--verbose`
 
-:   Set for more verbose outputs. Use `-VV` for much more verbose
-    outputs. Use `-VVV` for maximum verbosity, which may provide more
-    information than is actually helpful.
+: Set for more verbose outputs. Use `-VV` for much more verbose outputs. Use `-VVV` for maximum verbosity, which may provide more information than is actually helpful.
 
 {{< note >}}
 
@@ -60,23 +53,17 @@ Use the verbose logging that is built into Chef Infra Client:
 
 `-l LEVEL`, `--log_level LEVEL`
 
-:   The level of logging to be stored in a log file. Possible levels:
-    `auto` (default), `debug`, `error`, `fatal`, `info`, `trace`, or `warn`.
-    Default value: `warn` (when a terminal is available) or `info` (when
-    a terminal is not available).
+: The level of logging to be stored in a log file. Possible levels: `auto` (default), `debug`, `error`, `fatal`, `info`, `trace`, or `warn`. Default value: `warn` (when a terminal is available) or `info` (when a terminal is not available).
 
 `-L LOGLOCATION`, `--logfile c`
 
-:   The location of the log file. This is recommended when starting any
-    executable as a daemon. Default value: `STDOUT`.
+: The location of the log file. This is recommended when starting any executable as a daemon. Default value: `STDOUT`.
 
 ### log Resource
 
 {{% resource_log_summary %}}
 
-New in 12.0, `-o RUN_LIST_ITEM`. Changed in 12.0 `-f` no longer allows
-unforked intervals, `-i SECONDS` is applied before a Chef Infra Client
-run.
+New in 12.0, `-o RUN_LIST_ITEM`. Changed in 12.0 `-f` no longer allows unforked intervals, `-i SECONDS` is applied before a Chef Infra Client run.
 
 #### Syntax
 
@@ -95,19 +82,19 @@ run.
 The following examples demonstrate various approaches for using
 resources in recipes:
 
-**Specify a log entry**
+##### Specify a log entry
 
 {{% resource_log_set_info %}}
 
-**Set debug logging level**
+##### Set debug logging level
 
 {{% resource_log_set_debug %}}
 
-**Create log entry when the contents of a data bag are used**
+##### Create log entry for data bag contents
 
 {{% resource_log_set_debug %}}
 
-**Add a message to a log file**
+##### Add a message to a log file
 
 {{% resource_log_add_message %}}
 
@@ -116,17 +103,11 @@ resources in recipes:
 Some more complex ways to debug issues with a Chef Infra Client run
 include:
 
--   Using the **chef_handler** resource
--   Using the chef-shell and the **breakpoint** resource to add
-    breakpoints to recipes, and to then step through the recipes using
-    the breakpoints
--   Using the `debug_value` method from chef-shell to identify the
-    location(s) from which attribute values are being set
--   Using the `ignore_failure` method in a recipe to force Chef Infra
-    Client to move past an error to see what else is going on in the
-    recipe, outside of a known failure
--   Using chef-solo to run targeted Chef Infra Client runs for specific
-    scenarios
+- Using the **chef_handler** resource
+- Using the chef-shell and the **breakpoint** resource to add breakpoints to recipes, and to then step through the recipes using the breakpoints
+- Using the `debug_value` method from chef-shell to identify the location(s) from which attribute values are being set
+- Using the `ignore_failure` method in a recipe to force Chef Infra Client to move past an error to see what else is going on in the recipe, outside of a known failure
+- Using chef-solo to run targeted Chef Infra Client runs for specific scenarios
 
 ### chef_handler
 
@@ -142,7 +123,7 @@ Read more [about exception, report, and start handlers](/handlers/).
 
 {{% chef_shell_modes %}}
 
-#### Configure
+#### Configure chef-shell
 
 {{% chef_shell_config %}}
 
@@ -150,13 +131,17 @@ Read more [about exception, report, and start handlers](/handlers/).
 
 {{% chef_shell_config_rb %}}
 
-#### Run as a Chef Infra Client
+#### Run chef-shell as a Chef Infra Client
 
 {{% chef_shell_run_as_chef_client %}}
 
-#### Manage
+#### Manage chef-shell
 
 {{% chef_shell_manage %}}
+
+#### Use chef-shell to Debug an Existing Recipe
+
+{{< readFile_shortcode file="chef_shell_debug_existing_recipe.md" >}}
 
 ### breakpoint Resource
 
@@ -178,24 +163,19 @@ Read more [about exception, report, and start handlers](/handlers/).
 
 #### Examples
 
-The following examples demonstrate various approaches for using
-resources in recipes:
+The following examples demonstrate various approaches for using the `breakpoint` resource in recipes:
 
-**A recipe without a breakpoint**
+##### A recipe without a breakpoint
 
 {{% resource_breakpoint_no %}}
 
-**The same recipe with breakpoints**
+##### The same recipe with breakpoints
 
 {{% resource_breakpoint_yes %}}
 
-### Step Through Run-list
+#### Exercise: Use breakpoint to Step Through a Run List
 
 {{% chef_shell_step_through_run_list %}}
-
-### Debug Existing Recipe
-
-{{< readFile_shortcode file="chef_shell_debug_existing_recipe.md" >}}
 
 ### Advanced Debugging
 
@@ -203,17 +183,13 @@ resources in recipes:
 
 ### debug_value
 
-Use the `debug_value` method to discover the location within the
-attribute precedence hierarchy from which a particular attribute (or
-sub-attribute) is set. This method is available when running chef-shell
-in Chef Infra Client mode:
+Use the `debug_value` method to discover the location within the attribute precedence hierarchy from which a particular attribute (or sub-attribute) is set. This method is available when running chef-shell in Chef Infra Client mode:
 
 ```bash
 chef-shell -z
 ```
 
-For example, the following attributes exist in a cookbook. Some are
-defined in a role file:
+For example, the following attributes exist in a cookbook. Some are defined in a role file:
 
 ```ruby
 default_attributes 'test' => { 'source' => 'role default' }
@@ -228,16 +204,13 @@ normal[:test][:source]      = 'attributes normal'
 override[:test][:source] = 'attributes override'
 ```
 
-To debug the location in which the value of `node[:test][:source]` is
-set, use chef-shell and run a command similar to:
+To debug the location in which the value of `node[:test][:source]` is set, use chef-shell and run a command similar to:
 
 ```none
 pp node.debug_value('test', 'source')
 ```
 
-This will pretty-print return all of the attributes and sub-attributes
-as an array of arrays; `:not_present` is returned for any attribute
-without a value:
+This will pretty-print return all the attributes and sub-attributes as an array of arrays; `:not_present` is returned for any attribute without a value:
 
 ```bash
 [['set_unless_enabled?', false],
@@ -253,26 +226,20 @@ without a value:
  ['automatic', :not_present]]
 ```
 
-where
+where:
 
--   `set_unless_enabled` indicates if the attribute collection is in
-    `set_unless` mode; this typically returns `false`
--   Each attribute type is listed in order of precedence
--   Each attribute value shown is the value that is set for that
-    precedence level
--   `:not_present` is shown for any attribute precedence level that has
-    no attributes
+- `set_unless_enabled` indicates if the attribute collection is in `set_unless` mode; this typically returns `false`
+- Each attribute type is listed in order of precedence
+- Each attribute value shown is the value that is set for that precedence level
+- `:not_present` is shown for any attribute precedence level that has no attributes
 
-A [blog post by Joshua
-Timberman](http://jtimberman.housepub.org/blog/2014/09/02/chef-node-dot-debug-value/)
-provides another example of using this method.
+A [blog post by Joshua Timberman](http://jtimberman.housepub.org/blog/2014/09/02/chef-node-dot-debug-value/) provides another example of using this method.
 
 ### ignore_failure Method
 
-All resources share a set of common actions, attributes, and so on. Use
-the following attribute in a resource to help identify where an issue
-within a recipe may be located:
+All resources share a set of common actions, attributes, and so on. Use the following attribute in a resource to help identify where an issue within a recipe may be located:
 
+<!-- markdownlint-disable MD033 -->
 <table>
 <colgroup>
 <col style="width: 12%" />
@@ -291,13 +258,10 @@ within a recipe may be located:
 </tr>
 </tbody>
 </table>
+<!-- markdownlint-enable MD033 -->
 
 ### chef-solo
 
-See [chef-solo (executable)](/ctl_chef_solo/) for complete CTL
-documentation.
-
 {{% chef_solo_summary %}}
 
-See [chef-solo (executable)](/ctl_chef_solo/) for complete CTL
-documentation.
+See [chef-solo (executable)](/ctl_chef_solo/) for complete CTL documentation.
