@@ -13,6 +13,7 @@ aliases = ["/handlers.html"]
     parent = "chef_infra/features"
     weight = 40
 +++
+<!-- markdownlint-configure-file { "MD033": false, "MD024": false } -->
 
 {{% handler %}}
 
@@ -28,11 +29,8 @@ aliases = ["/handlers.html"]
 
 ### Run from client.rb
 
-A simple exception or report handler may be installed and configured at
-run-time. This requires editing of a node's client.rb file to add the
-appropriate setting and information about that handler to the client.rb
-or solo.rb files. Depending on the handler type, one (or more) of the
-following settings must be added:
+A simple exception or report handler may be installed and configured at run-time. This requires editing of a node's client.rb file to add the
+appropriate setting and information about that handler to the client.rb or solo.rb files. Depending on the handler type, one (or more) of the following settings must be added:
 
 <table>
 <colgroup>
@@ -57,18 +55,7 @@ following settings must be added:
 </tbody>
 </table>
 
-When this approach is used, the client.rb file must also tell Chef Infra
-Client how to install and run the handler. There is no default install
-location for handlers. The simplest way to distribute and install them
-is via RubyGems, though other methods such as GitHub or HTTP will also
-work. Once the handler is installed on the system, enable it in the
-client.rb file by requiring it. After the handler is installed, it may
-require additional configuration. This will vary from handler to
-handler. If a handler is a very simple handler, it may only require the
-creation of a new instance. For example, if a handler named
-`MyOrg::EmailMe` is hardcoded for all of the values required to send
-email, a new instance is required. And then the custom handler must be
-associated with each of the handler types for which it will run.
+When this approach is used, the client.rb file must also tell Chef Infra Client how to install and run the handler. There is no default install location for handlers. The simplest way to distribute and install them is via RubyGems, though other methods such as GitHub or HTTP will also work. Once the handler is installed on the system, enable it in the client.rb file by requiring it. After the handler is installed, it may require additional configuration. This will vary from handler to handler. A basic handler may only require the creation of a new instance. For example, if a handler named `MyOrg::EmailMe` is hardcoded for all the values required to send email, a new instance is required. And then the custom handler must be associated with each of the handler types for which it will run.
 
 For example:
 
@@ -92,8 +79,7 @@ exception_handlers << email_handler           # run at the end of a failed run
 
 ### Run from client.rb
 
-A start handler can be configured in the client.rb file by adding the
-following setting:
+A start handler can be configured in the client.rb file by adding the following setting:
 
 <table>
 <colgroup>
@@ -114,8 +100,7 @@ following setting:
 </tbody>
 </table>
 
-For example, the Reporting start handler adds the following code to the
-top of the client.rb file:
+For example, the Reporting start handler adds the following code to the top of the client.rb file:
 
 ```ruby
 begin
@@ -126,10 +111,7 @@ rescue LoadError
 end
 ```
 
-This ensures that when a Chef Infra Client run begins the
-`chef_reporting` event handler is enabled. The `chef_reporting` event
-handler is part of a gem named `chef-reporting`. The **chef_gem**
-resource is used to install this gem:
+This ensures that when a Chef Infra Client run begins the `chef_reporting` event handler is enabled. The `chef_reporting` event handler is part of a gem named `chef-reporting`. The **chef_gem** resource is used to install this gem:
 
 ```ruby
 chef_gem 'chef-reporting' do
@@ -157,15 +139,15 @@ The following examples show ways to use the Handler DSL.
 
 {{% dsl_handler_slide_send_email %}}
 
-**Define How Email is Sent**
+##### Define How Email is Sent
 
 {{< readFile_shortcode file="dsl_handler_slide_send_email_library.md" >}}
 
-**Add the Handler**
+##### Add the Handler
 
 {{% dsl_handler_slide_send_email_handler %}}
 
-**Test the Handler**
+##### Test the Handler**
 
 {{% dsl_handler_slide_send_email_test %}}
 
@@ -179,26 +161,17 @@ The following examples show ways to use the Handler DSL.
 
 ## Handlers and Cookbooks
 
-The following cookbooks can be used to load handlers during a Chef Infra
-Client run.
+The following cookbooks can be used to load handlers during a Chef Infra Client run.
 
 ### chef_handler
 
-Exception and report handlers can be distributed using the
-**chef_handler** resource. This resource is included with Chef Infra Client 14 and above.
-It can be used to enable custom handlers from within recipes and to
-include product-specific handlers from cookbooks.
+Exception and report handlers can be distributed using the **chef_handler** resource. This resource is included with Chef Infra Client 14 and above. It can be used to enable custom handlers from within recipes and to include product-specific handlers from cookbooks.
 
-More information on the **chef_handler** resource can be accessed in the
-resource documentation [here](resources/chef_handler.md).
+More information on the **chef_handler** resource can be accessed in the resource documentation [here](resources/chef_handler.md).
 
 ### Chef Infra Client
 
-Start handlers can be distributed using the **chef-client** cookbook,
-which will install the handler on the target node during the initial
-configuration of the node. This ensures that the start handler is always
-present on the node so that it is available to Chef Infra Client at the
-start of every run.
+Start handlers can be distributed using the **chef-client** cookbook, which will install the handler on the target node during the initial configuration of the node. This ensures that the start handler is always present on the node so that it is available to Chef Infra Client at the start of every run.
 
 ## Custom Handlers
 
@@ -250,24 +223,17 @@ The following sections show examples of handlers.
 
 ### Reporting
 
-Start handler functionality was added when Chef started building add-ons
-for the Chef Infra Server. The Reporting add-on is designed to create
-reporting data based on a Chef Infra Client run. And since Reporting
-needs to be able to collect data for the entire Chef Infra Client run,
-Reporting needs to be enabled before anything else happens at the start
-of a Chef Infra Client run.
+Start handler functionality was added when Chef started building add-ons for the Chef Infra Server. The Reporting add-on is designed to create reporting data based on a Chef Infra Client run. And since Reporting needs to be able to collect data for the entire Chef Infra Client run, Reporting needs to be enabled before anything else happens at the start of a Chef Infra Client run.
 
 {{< note >}}
 
-The start handler used by the Reporting add-on for the Chef Infra Server
-is always installed using the **chef-client** cookbook.
+The start handler used by the Reporting add-on for the Chef Infra Server is always installed using the **chef-client** cookbook.
 
 {{< /note >}}
 
 #### start_handler.rb
 
-The following code shows the start handler used by the Reporting add-in
-for the Chef Infra Server:
+The following code shows the start handler used by the Reporting add-in for the Chef Infra Server:
 
 ```ruby
 require 'chef/handler'
