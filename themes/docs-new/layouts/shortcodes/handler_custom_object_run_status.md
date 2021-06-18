@@ -1,7 +1,4 @@
-The `run_status` object is initialized by Chef Infra Client before the
-`report` interface is run for any handler. The `run_status` object keeps
-track of the status of a Chef Infra Client run and will contain some (or
-all) of the following properties:
+The `run_status` object is initialized by Chef Infra Client before the `report` interface is run for any handler. The `run_status` object keeps track of the status of a Chef Infra Client run and will contain some (or all) of the following properties:
 
 <table>
 <colgroup>
@@ -68,10 +65,7 @@ all) of the following properties:
 
 <div class="admonition-note-text">
 
-These properties are not always available. For example, a start handler
-runs at the beginning of Chef Infra Client run, which means that
-properties like `end_time` and `elapsed_time` are still unknown and will
-be unavailable to the `run_status` object.
+These properties are not always available. For example, a start handler runs at the beginning of Chef Infra Client run, which means that properties like `end_time` and `elapsed_time` are still unknown and will be unavailable to the `run_status` object.
 
 
 

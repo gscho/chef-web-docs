@@ -1,6 +1,4 @@
-The following recipe is added to the run-list for every node on which a
-list of cookbooks and versions will be generated as report output after
-every Chef Infra Client run.
+The following recipe is added to the run-list for every node on which a list of cookbooks and versions will be generated as report output after every Chef Infra Client run.
 
 ```ruby
 include_recipe 'chef_handler'

@@ -1,6 +1,4 @@
-The `report` interface is used to define how a handler will behave and
-is a required part of any custom handler. The syntax for the `report`
-interface is as follows:
+The `report` interface is used to define how a handler will behave and is a required part of any custom handler. The syntax for the `report` interface is as follows:
 
 ```ruby
 def report
@@ -8,14 +6,9 @@ def report
 end
 ```
 
-The Ruby code used to define a custom handler will vary significantly
-from handler to handler. Chef Infra Client includes two default
-handlers: `error_report` and `json_file`. Their use of the `report`
-interface is shown below.
+The Ruby code used to define a custom handler will vary significantly from handler to handler. Chef Infra Client includes two default handlers: `error_report` and `json_file`. Their use of the `report` interface is shown below.
 
-The
-[error_report](https://github.com/chef/chef/blob/master/lib/chef/handler/error_report.rb)
-handler:
+The [error_report](https://github.com/chef/chef/blob/master/lib/chef/handler/error_report.rb) handler:
 
 ```ruby
 require 'chef/handler'
@@ -33,9 +26,7 @@ class Chef
 end
 ```
 
-The
-[json_file](https://github.com/chef/chef/blob/master/lib/chef/handler/json_file.rb)
-handler:
+The [json_file](https://github.com/chef/chef/blob/master/lib/chef/handler/json_file.rb) handler:
 
 ```ruby
 require 'chef/handler'

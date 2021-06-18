@@ -1,7 +1,4 @@
-The syntax for a handler can vary, depending on what the the situations
-the handler is being asked to track, the type of handler being used, and
-so on. All custom exception and report handlers are defined using Ruby
-and must be a subclass of the `Chef::Handler` class.
+ The syntax for a handler can vary, depending on what the the situations the handler is being asked to track, the type of handler being used, and so on. All custom exception and report handlers are defined using Ruby and must be a subclass of the `Chef::Handler` class.
 
 ```ruby
 require 'chef/log'

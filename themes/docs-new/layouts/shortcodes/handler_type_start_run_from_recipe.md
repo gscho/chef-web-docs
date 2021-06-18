@@ -1,5 +1,4 @@
-The **chef-client** cookbook can be configured to automatically install
-and configure gems that are required by a start handler. For example:
+The **chef-client** cookbook can be configured to automatically install and configure gems that are required by a start handler. For example:
 
 ```ruby
 node.override['chef_client']['load_gems']['chef-reporting'] = {

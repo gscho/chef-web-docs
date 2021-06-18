@@ -1,5 +1,4 @@
-The following open source handlers are available from the Chef
-community:
+The following open source handlers are available from the Chef community:
 
 <table>
 <colgroup>
